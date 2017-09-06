@@ -1,12 +1,12 @@
 const Router = require('koa-router');
 
 const apiRouter = new Router({
-    prefix: '/api'
+    prefix: '/api',
 });
-apiRouter.get('/', async ctx => {
+apiRouter.get('/', async (ctx) => {
     ctx.body = {
-        success: true
-    }
+        success: true,
+    };
 });
 
 apiRouter.allowedMethods();
