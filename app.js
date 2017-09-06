@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const path = require('path');
 const convert = require('koa-convert');
 const bodyParser = require('koa-bodyparser');
 const views = require('koa-views');
@@ -33,11 +34,11 @@ app.use(async (ctx, next) => {
 
 app.use(bodyParser());
 app.use(serve(__dirname));
-app.use(views(__dirname + '/views', { extension: 'pug' }));
+app.use(views(path.join(__dirname, '/views'), { extension: 'pug' }));
 app.use(convert(markdown({
-    root: __dirname + '/public/markdown',
-    baseUrl: '/docs',
-    layout: __dirname + '/public/markdown/layout.html',
+    root: path.join(__dirname, '/public/markdown'),
+    baseUrl: '/docs', // 服务器路径
+    layout: path.join(__dirname, '/public/markdown/layout.html'),
 })));
 
 app.use(apiRouter.routes());
