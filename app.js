@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const path = require('path');
 const convert = require('koa-convert');
+const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
 const views = require('koa-views');
 const serve = require('koa-static');
@@ -9,6 +10,13 @@ const webRouter = require('./router/index');
 const apiRouter = require('./api/index');
 
 const app = new Koa();
+app.keys = ['GraivtyMsc'];
+
+const CONFIG = {
+    key: 'SESSIONID',
+    maxAge: 1000 * 60,
+};
+app.use(session(CONFIG, app));
 /**
  * 记录返回时间
  */
