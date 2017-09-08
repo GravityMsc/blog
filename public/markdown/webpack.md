@@ -103,3 +103,34 @@ module中配置各种loader，对源代码进行编译打包。
 -   `url-loader&file-loader`  
     两者功能作用大体相同。在这里，`url-loader`把在limit大小(KB)限制之内的图片转成base64编码插入相应位置，超过此大小的图片重新命名，打包到output指定目录下。同时插入hash码进行缓存控制。（有别于传统img标签内的src链接，`url-loader` 需要识别 `import` 引入的文件）。  
     `file-loader` 与之类似，在此用作字体等文件的加载。
+### plugin
+配置打包所需各种插件，自动化或优化某些过程。目前所用到配置如下：
+```
+    plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            filename: 'common.js',
+            minChunks: Infinity,
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            async: true,
+            children: true,
+            minChunks: 3,
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+        new HtmlwebpackPlugin({
+            template: './src/index_tpl.html',
+            filename: 'index.html',
+            inject: true,
+            hash: true,
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('dev'),
+            },
+        }),
+    ]
+```
+-   `CommonsChunkPlugin` 提取公共模块插件。第一项配置多数是把在entry所依赖的库文件提取出来并重新命名。因为为所依赖的package,稳定性高，不常变化，所以不加入hash码，提取出来不必每次重新打包。第二项配置是把所有子chunk的公共依赖（引用次数大于minChunks）提取打包。当使用相应子chunk模块时，它将自动并行下载所打包的公共依赖。([帮助范例](https://github.com/webpack/webpack/issues/5386))
