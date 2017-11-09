@@ -57,15 +57,6 @@ app.use(convert(markdown({
 
 app.use(apiRouter.routes());
 app.use(webRouter.routes());
-// /**
-//  * 404
-//  */
-// app.use(async (ctx) => {
-//     ctx.status = ctx.status || 404;
-//     await ctx.render('404', {
-//         errMsg: '找不到页面',
-//     });
-// });
 
 app.listen(3000);
 console.log('nodeblog is starting at port 3000');
