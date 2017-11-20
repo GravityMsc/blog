@@ -134,3 +134,7 @@ module中配置各种loader，对源代码进行编译打包。
     ]
 ```
 -   `CommonsChunkPlugin` 提取公共模块插件。第一项配置多数是把在entry所依赖的库文件提取出来并重新命名。因为为所依赖的package,稳定性高，不常变化，所以不加入hash码，提取出来不必每次重新打包。第二项配置是把所有子chunk的公共依赖（引用次数大于minChunks）提取打包。当使用相应子chunk模块时，它将自动并行下载所打包的公共依赖。([帮助范例](https://github.com/webpack/webpack/issues/5386))
+-   `HotModuleReplacementPlugin` webpack HMR 插件配置。就React来说，配合react-hot-loader实现热替换，做到不重新刷新，完成对页面部分结构的替代更新。
+-   `NamedModulesPlugin` 显示模块的相对路径，开发环境下方便调试。
+-   `HtmlwebpackPlugin` 针对打包后的JS文件，插入到html模板中，完成最后一步的自动化构建。插件默认支持ejs(pug)、html文件格式，其中，inject参数可选，head或者true(等同于body)。默认插入所有output的JS文件；多页情况下，配置chunks参数进行不同页面下的JS引入。
+-   `DefinePlugin` 定义变量，完成对生产环境、开发环境下的区分。
