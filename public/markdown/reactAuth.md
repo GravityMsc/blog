@@ -39,3 +39,6 @@
 
 3、browserRouter、hashRouter
     若使用browserRouter，在后端未作特殊处理时，刷新页面因服务器寻找指定路径资源文件导致404。因为是单页应用，需要我们对后端加以限制，在请求其他路径资源失败时默认返回首页文件（多指index.html等），以满足单页情况下的路由选择；hashRouter的优势在于不用对后端进行限制，路径以'#'分隔。在react-router v4中，history也出现变化，详细使用可参考官方示例。同时在一些刷新情况下，可以添加history监听，以便根据location决定当前情况下的一些状态变化。
+
+4、补充 location,history,match等
+    
